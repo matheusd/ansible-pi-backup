@@ -1,0 +1,9 @@
+---
+- hosts: pi-backup
+  vars:
+    pi_public_keys:
+      - data/pi-key.pub
+  become: true
+  roles:
+    - pibasesec
+  

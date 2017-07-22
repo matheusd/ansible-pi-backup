@@ -1,0 +1,11 @@
+---
+- name: Update APT package cache
+  apt: update_cache=yes cache_valid_time=3600
+
+- name: Upgrade APT to the latest packages
+  apt: upgrade=safe  
+- name: Add authorized keys for user pi
+  authorized_key: user=pi
+                  key="{{ lookup('file', item) }}"
+  with_items: "{{pi_public_keys}}"
+
