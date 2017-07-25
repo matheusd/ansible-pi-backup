@@ -1,9 +1,18 @@
 ---
+
 - hosts: pi-backup
   vars:
     pi_public_keys:
       - data/pi-key.pub
+    borgbak_pool: "/data/repos"
+  vars_files:
+    - data/borgclients.yml
   become: true
   roles:
-    - pibasesec
+    - role: pibasesec
+      tags: base
+    - role: raspbiantesting
+      tags: raspbiantesting
+    - role: borgbackup
+      tags: borg
   

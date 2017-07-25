@@ -1,0 +1,12 @@
+---
+- name: Set the pinning preferences of packages
+  copy: src=preferences dest=/etc/apt/preferences
+
+- name: Enable testing repo
+  apt_repository:
+    repo: deb http://mirrordirector.raspbian.org/raspbian/ testing main contrib non-free rpi
+    state: present
+
+- name: Update APT package cache
+  apt: update_cache=yes cache_valid_time=3600
+    

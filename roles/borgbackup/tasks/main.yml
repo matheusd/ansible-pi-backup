@@ -1,0 +1,24 @@
+---
+- name: Create backup group
+  group: name="{{ borgbak_group }}" state=present
+
+- name: Create backup user
+  user: name="{{ borgbak_user }}" shell=/bin/bash home="{{ borgbak_home }}" 
+        createhome=yes group="{{ borgbak_group }}" groups= state=present
+
+- name: Install the borgbackup package
+  apt: name=borgbackup state=latest
+
+- name: Add the authorization keys
+  authorized_key: user="{{ borgbak_user }}"
+                  key="{{ item.key }}"
+                  key_options=command="cd {{ borgbak_pool }}/{{ item.client }};borg serve --restrict-to-path {{ borgbak_pool }}/{{ item.client }}",no-port-forwarding,no-X11-forwarding,no-pty,no-agent-forwarding,no-user-rc
+  with_items: "{{borgbak_clients}}"
+
+- name: Create the dir for each client
+  file: path="{{ borgbak_pool }}/{{ item.client }}" 
+        owner="{{ borgbak_user }}" 
+        group="{{ borgbak_group }}" 
+        mode=0700 
+        state=directory
+  with_items: "{{borgbak_clients}}"

@@ -1,0 +1,5 @@
+---
+borgbak_user: borgbak
+borgbak_group: borgbak
+borgbak_home: "/home/{{borgbak_user}}"
+borgbak_pool: "{{borgbak_home}}/repos"
