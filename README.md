@@ -1,5 +1,16 @@
 # Backup Raspi Ansible Script
 
+**NOTICE **
+
+I ended up not using this because performance of borg sending to a remote raspi repo was subpar.
+
+I ended up using [Rsync.net attic/borg storage](http://rsync.net/products/attic.html) as my backup provider.
+
+I'm leaving this repo for posterity.
+
+
+### Original Instructions
+
 Used for setting up a RaspberryPI as a backup server for borg usage.
 
 How to use it:
